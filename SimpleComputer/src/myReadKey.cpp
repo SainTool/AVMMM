@@ -31,6 +31,8 @@ int rk_readKey(KEYS &key) {
         key = KEYS::step;
     else if(buffer[0] == 'i')
         key = KEYS::reset;
+    else if(buffer[0] == '\n')
+        key = KEYS::enter;
     else if(buffer[0] == 'q')
         key = KEYS::closeApp;
     else

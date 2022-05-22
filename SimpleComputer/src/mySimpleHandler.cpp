@@ -197,12 +197,12 @@ int printAll() {
     std::cout << " Accumulator ";
     mt_gotoXY(2, 71);
     mt_setForeground(LIGHT_BLUE);
-    myHandler.computer.sc_memoryGet(myHandler.currentIndex, &myHandler.accumulator);
+    //myHandler.computer.sc_memoryGet(myHandler.currentIndex, &myHandler.accumulator);
     if (((myHandler.accumulator >> 14) & 1) == 0)
         std::cout << '+';
     else
         std::cout << '-';
-    std::cout << std::hex << std::setw(4) << std::setfill('0') << "0000" << std::dec; //myHandler.accumulator
+    std::cout << std::hex << std::setw(4) << std::setfill('0') << myHandler.accumulator << std::dec; //myHandler.accumulator
     mt_setForeground(BLUE);
     // instructionCounter
     mt_gotoXY(4, 64);
@@ -272,6 +272,20 @@ int mainLogic() {
                 break;
             case KEYS::accumulator:
                 //std::cout << "F5";
+                int valueee;
+                mt_setForeground(YELLOW);
+
+                mt_gotoXY(24, 2);
+                std::cout << "Input: ";
+
+                std::cin >> std::hex >> valueee;
+                valueee &= 0b111111111111111;
+                std::cin >> std::dec;
+                mt_setForeground(BLUE);
+                myHandler.accumulator = valueee;
+                break;
+            case KEYS::enter:
+                //std::cout << "F5";
                 int value;
                 mt_setForeground(YELLOW);
 
@@ -282,6 +296,7 @@ int mainLogic() {
                 value &= 0b111111111111111;
                 std::cin >> std::dec;
                 mt_setForeground(BLUE);
+                
                 myHandler.computer.sc_memorySet(myHandler.currentIndex, value);
                 break;
             case KEYS::instructionCounter:
